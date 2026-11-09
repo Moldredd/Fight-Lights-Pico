@@ -1,0 +1,138 @@
+<div id="idle_head_container">
+    <h1 class="page-header">Configure GP2040-CE Input Information Options</h1>
+    <div id="idle_header_helper" class="helper"
+        title="Enable GP2040-CE input information features.&#10;When enabled, you can configure the OLED display settings of each individual piece of information.">
+        ?</div>
+</div>
+<div class="gp2040ceinfo_checkbox-container">
+    <input type="checkbox" id="chkGP2040CEInfo" name="chkGP2040CEInfo" onchange="toggleGP2040CEInfoCheckBox(); updateGP2040CEInfoDisplay();">
+    <label id="lblGP2040CEInfoCheckBox" for="chkGP2040CEInfo">Enable GP2040-CE Input Information</label>
+    <div id="idle_header_helper" class="helper"
+        title="UART Required.&#10;In order to be able to enable and configure GP2040CE Information settings UART must be enabled and it's RX PIN configured.">
+        ?</div>
+</div>
+
+<div class="content-wrapper disabled-container" id="mdlBdyGP2040CEInfo">
+    <!-- Section 1: Display Configuration -->
+    <div class="oled-section">
+        <h3 class="section-title">Display Configuration</h3>
+        <div class="layout-grid">
+            <!-- Layout Canvas -->
+            <div class="canvas-container main-layout">
+                <div class="canvas-header">
+                    <span>Display Preview</span>
+                </div>
+                <div style="display: flex; align-items: flex-end; gap: 10px;">
+                    <canvas id="cvsGP2040CEInfo" class="oled-display"></canvas>
+                    <button id="exportBtn" class="action-btn secondary" onclick="exportGP2040CEInfoCanvasAsPNG()"
+                        title="Export current layout as PNG" disabled>&#8595;</button>
+                </div>
+                <div class="canvas-footer">
+                    <div class="gp2040ceinfo-form-row">
+                        <button class="action-btn gp2040ceinfo-toggle" id="btnGP2040CeInfoOptionsToggle" onclick="resetGP2040CEInfoDisplay(); updateGP2040CEInfoDisplay();" disabled>Reset Display</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layout Controls -->
+            <div class="layout-controls">
+                <div class="button-group">
+                    <button class="action-btn normal-display" id="btnGP2040CEInfoDisplayModeToggle" onclick="toggleInputDisplayCompactDisplay(); updateGP2040CEInfoDisplay();" disabled>Normal Display</button>
+                    <button class="action-btn" id="btnGP2040CEInfoDisplayColorToggle" onclick="toggleInputDisplayColor(); updateGP2040CEInfoDisplay();" disabled>Display Marker</button>
+                </div>
+                <div class="gp2040ceinfo-form-row">
+                    <label for="ddlGP2040CEInfoDisplayMode">Display Format*:</label>
+                    <select id="ddlGP2040CEInfoDisplayMode" class="gp2040ceinfo-form-select" onchange="updateGP2040CEInfoDisplay();" disabled>
+                        <option value="0" selected>Select Format</option>
+                        <option value="1">IIIIII|AA|SSSS-S</option>
+                        <option value="2">IIIIII/AA/SSSS-S</option>
+                        <option value="3">IIIIII-AA-SSSS-S</option>
+                        <option value="4">IIIIII AA SSSS-S</option>
+                        <option value="5">IIIIII|AAAA:AA</option>
+                        <option value="6">IIIIII/AAAA:AA</option>
+                        <option value="7">IIIIII-AAAA:AA</option>
+                        <option value="8">IIIIII AAAA:AA</option>
+                        <option value="9">IIIIII|SSSS-S</option>
+                        <option value="10">IIIIII/SSSS-S</option>
+                        <option value="11">IIIIII-SSSS-S</option>
+                        <option value="12">IIIIII SSSS-S</option>
+                        <option value="13">AAAA:AA|SSSS-S</option>
+                        <option value="14">AAAA:AA/SSSS-S</option>
+                        <option value="15">AAAA:AA-SSSS-S</option>
+                        <option value="16">AAAA:AA SSSS-S</option>
+                        <option value="17">IIIIII</option>
+                        <option value="18">AAAA:AA</option>
+                        <option value="19">SSSS-S</option>
+                    </select>
+                    <div class="gp2040ceinfo-control-row">
+                        <label for="ddlGP2040CEInfoInputPreview">Input Preview:</label>
+                        <select id="ddlGP2040CEInfoInputPreview" class="gp2040ceinfo-form-select" onchange="updateGP2040CEInfoDisplay();" disabled>
+                            <option value="" selected>Select Input</option>
+                            <option value="XINPUT" >PC / Steam</option>
+                            <option value="NSW">Nintendo Switch</option>
+                            <option value="PS3">PlayStation 3 / PC (DInput)</option>
+                            <option value="PS4">PS4</option>
+                            <option value="PS5">PS5</option>
+                            <option value="XBOX">Original Xbox</option>
+                            <option value="XONE">Xbox One</option>
+                            <option value="KEY">Keyboard Mode</option>
+                            <option value="HID">Generic Controller</option>
+                        </select>
+                    </div>
+
+                    <div class="gp2040ceinfo-control-row">
+                        <label for="ddlGP2040CEInfoAuthPreview">Auth Preview:</label>
+                        <select id="ddlGP2040CEInfoAuthPreview" class="gp2040ceinfo-form-select" onchange="updateGP2040CEInfoDisplay();" disabled>
+                            <option value="" selected>Select Auth</option>
+                            <option value="Auth:OK">Authenticated</option>
+                            <option value="Auth:NO">Authentication Failure</option>
+                            <option value="Auth:NA">Not Needed</option>
+                        </select>
+                    </div>
+
+                    <div class="gp2040ceinfo-control-row">
+                        <label for="ddlGP2040CEInfoSOCDPreview">SOCD Preview:</label>
+                        <select id="ddlGP2040CEInfoSOCDPreview" class="gp2040ceinfo-form-select" onchange="updateGP2040CEInfoDisplay();" disabled>
+                            <option value="" selected>Select SOCD</option>
+                            <option value="SOCD-U">SOCD-U</option>
+                            <option value="SOCD-N">SOCD-N</option>
+                            <option value="SOCD-L">SOCD-L</option>
+                            <option value="SOCD-F">SOCD-F</option>
+                            <option value="SOCD-X">SOCD-X</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- Hidden Activation Button Controls -->
+                <div class="gp2040ceinfo-form-row" hidden>
+                    <label id="act_button_label" for="oled_select_activation_button" hidden>Activation Button:</label>
+                    <select id="oled_select_activation_button" class="gp2040ceinfo-form-select" onchange="set_activation_button()"
+                        hidden>
+                        <option value="0">notSet</option>
+                    </select>
+                </div>
+                <button class="action-btn secondary" id="oled_open_directions" onclick="show_directions_modal()"
+                    hidden>Set
+                    Directions</button>
+            </div>
+            <div class="gp2040ceinfo_checkbox-container">
+                <label id="lblGP2040CEInfoCheckBox" for="chkGP2040CEInfo">Display format*</label>
+                <div id="idle_header_helper" class="helper"
+                    title="Display format defines how the input information will be presented on screen.&#10;Various options are included to suit different needs.&#10;&#10;I = Stands for input and up to the character amount present in option.&#10;A = Stands for Authorization Status and up to the character amount present in option.&#10;S = Stands for SOCD and up to the character amount present in option.">
+                    ?</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Elements for Animation Processing -->
+    <canvas id="pngCanvas" style="display: none;"></canvas>
+    <textarea id="animation_code_box" name="animation_code_box" style="display: none;"></textarea>
+    <textarea id="animation_code_box2" name="animation_code_box2" style="display: none;"></textarea>
+
+    <!-- Footer -->
+    <div class="footer-row">
+        <a href="https://fight-lights.com/docs/#gp2030ce-input-information-config" target="_blank" id="lnkGP2040CEInfo"
+            class="guide-link">Need help? Check out documentation for this page</a>
+    </div>
+</div>

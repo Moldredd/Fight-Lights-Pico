@@ -136,6 +136,33 @@ oled_scl = 27
 oled_animation_delay = 0
 oled_combo_idle_frame = -1
 user_combos = []
+
+#Addon config variables
+uart_tx_pin = None #Pin to transfer data through UART (Disabled by default).
+uart_rx_pin = 28 #Pins to receive data through UART (Defaults at 28).
+
+#=======================================GP2040-CE Input Information=======================================
+enable_gp2040ce_info = False #Used for GP2040CE Input information for the Fight-Lights' oled screen.
+gp2040ce_info_display = "" # Individual/Inline
+show_profile = False #To enable/show GP2040-CE profile information on screen.
+profile_position_x = 0 #Horizontal positioning for the GP2040-CE profile information text on screen.
+profile_position_y = 0 #Vertical positioning for the GP2040-CE profile information text on screen.
+profile_size = 8 #GP2040-CE profile text size.
+show_input = False #To enable/show input information on screen.
+input_position_x = 0 #Horizontal positioning for the input information text on screen.
+input_position_y = 0 #Vertical positioning for the input information text on screen.
+input_size = 8 #Input text size.
+show_auth_status = False #To show PS4/PS5/XONE input authorization on screen.
+auth_position_x = 0 #Horizontal positioning for the authorization information text on screen.
+auth_position_y = 0 #Vertical positioning for the authorization information text on screen.
+auth_status = 0 #Flag for authentication status
+auth_size = 8; #Auth text size.
+show_socd_info = False #To show socd information on screen.
+socd_position_x = 0 #Horizontal positioning for the socd information text on screen.
+socd_position_y = 0 #Vertical positioning for the socd information text on screen.
+socd_size = 8 #Socd text size.
+#=======================================GP2040-CE Input Information End=======================================
+#Addons end
 splash = bytearray([
 0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xEE,0x33,0xFF,0x80,0x00,0x00,0x00,0x00,0x00,
 0x00,0x00,0x00,0x00,0x00,0x03,0xFC,0xC4,0x21,0x9F,0xC0,0x00,0x00,0x00,0x00,0x00,

@@ -9,7 +9,9 @@ const pages = {
   default_colors: document.getElementById('default_colors-page'),
   player_leds: document.getElementById('player_leds-page'),
   eightway: document.getElementById('eightway-page'),
-  oled: document.getElementById('oled-page')
+  oled: document.getElementById('oled-page'),
+  //uart: document.getElementById('uart-page'),
+  Addons_gp2040ce_input_info: document.getElementById('Addons_gp2040ce_input_info-page')
 };
 
 
@@ -40,39 +42,64 @@ function initColorPicker() {
 
 // Load individual page
 function fetchPage(page) {
-  return fetch(`pages/${page}.html`)
+
+  // Normalize Addons pages
+  const isAddon = page.startsWith('Addons_');
+  const cleanPageName = isAddon ? page.replace('Addons_', '') : page;
+
+  // Conditioning html file paths depending core or Addon.
+  const pagename = isAddon
+    ? `pages/Addons/${cleanPageName}.html`
+    : `pages/${cleanPageName}.html`;
+
+  return fetch(pagename)
     .then(response => {
-      if (!response.ok) throw new Error(`Failed to load ${page}.html`);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${pagename}.`);
+      }
       return response.text();
     })
     .then(html => {
+
+      // Insert HTML into the correct page container
       pages[page].innerHTML = html;
 
-      // Initialize page-specific components
-      switch (page) {
-        case 'home':
-          initColorPicker();
-          break;
-        case 'general':
-          initProfileValidation();
-          break;
-        case 'codeboxes':
-          initDropHandler();
-          break;
-        case 'oled':
-          if (typeof initOledComponents === 'function') {
-            initOledComponents(); 
-          }
-          break;
-      }
+      // Page-specific initialization (Delays init until DOM is updated) 
+      requestAnimationFrame(() => {
+        switch (page) {
+          case 'home':
+            initColorPicker();
+            break;
 
-      return page; // Return page name for chaining
+          case 'general':
+            initProfileValidation();
+            break;
+
+          case 'codeboxes':
+            initDropHandler();
+            break;
+
+          case 'oled':
+            if (typeof initOledComponents === 'function') {
+              initOledComponents();
+            }
+            break;
+
+          case 'Addons_gp2040ce_input_info':
+            if (typeof initGP2040CEInfoOledComponents === 'function') {
+              initGP2040CEInfoOledComponents();
+            }
+            break;
+        }
+      });
+
+      return page;
     })
     .catch(error => {
       console.error(error);
       pages[page].innerHTML = `
         <div class="error-message">
-          <h2>Error loading ${page} page</h2>
+          <h2>Error loading ${pagename}</h2>
           <p>${error.message}</p>
         </div>
       `;
@@ -92,7 +119,9 @@ function loadAllPages() {
     fetchPage('default_colors'),
     fetchPage('player_leds'),
     fetchPage('eightway'),
-    fetchPage('oled')
+    fetchPage('oled'),
+    //fetchPage('uart'),
+    fetchPage('Addons_gp2040ce_input_info')
   ]);
 }
 
