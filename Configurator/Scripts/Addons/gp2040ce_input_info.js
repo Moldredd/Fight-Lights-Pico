@@ -112,8 +112,8 @@ class GP2040CEInfoDisplay {
         this.x = Math.max(0, Math.min(this.canvas.width, this.x + dx));
         this.y = Math.max(0, Math.min(this.canvas.height, this.y + dy));
 
-        gp2040ceInfoDisplayX = this.x;
-        gp2040ceInfoDisplayY = this.y;
+        gp2040ceinfo_display_x = this.x;
+        gp2040ceinfo_display_y = this.y;
         updateGP2040CEInfoCanvas();
     }
 }
@@ -122,17 +122,17 @@ let isGP2040CEInfoCanvasDrawn = false;
 let selectedGP2040CEInfoOption = null;
 let gp2040ceInfoOptions = [];
 
-let showGP2040CEInfoDisplay = false; // For config.py
-let gp2040ceInfoDisplayMode = 0; // For config.py
-let gp2040ceInfoCompactDisplay = false; // for config.py
-let gp2040ceInfoDisplayX = 5; // For config.py
-let gp2040ceInfoDisplayY = 5; // For config.py
+let enable_gp2040ceinfo = false; // For config.py
+let gp2040ceinfo_display_mode = 0; // For config.py
+let gp2040ceinfo_compact_display = false; // for config.py
+let gp2040ceinfo_display_x = 5; // For config.py
+let gp2040ceinfo_display_y = 5; // For config.py
 
 // Used for web configuration preview
 let gp2040ceInfoDisplayPreview = '';
-let gp2040ceInfoInputPreview = 'XInput';
+let gp2040ceInfoInputPreview = 'XINPUT';
 let gp2040ceInfoAuthPreview = 'Auth:OK';
-let gp2040ceInfoSOCDPreview = 'SOCD';
+let gp2040ceInfoSOCDPreview = 'SOCD-U';
 
 function toggleGP2040CEInfoCheckBox() {
     const container = document.getElementById('mdlBdyGP2040CEInfo');
@@ -151,18 +151,20 @@ function toggleGP2040CEInfoCheckBox() {
             .forEach(el => el.disabled = false);
         link.classList.remove('nav-disabled');
     }
+
+    enable_gp2040ceinfo = checkbox.checked;
 }
 
 function toggleInputDisplayCompactDisplay() {
     const btn = document.getElementById('btnGP2040CEInfoDisplayModeToggle');
 
     if (btn.innerText === 'Normal Display') {
-        gp2040ceInfoCompactDisplay = true;
+        gp2040ceinfo_compact_display = true;
         btn.innerText = 'Compact Display';
         btn.classList.remove('normal-display');
         btn.classList.add('compact-display');
     } else {
-        gp2040ceInfoCompactDisplay = false;
+        gp2040ceinfo_compact_display = false;
         btn.innerText = 'Normal Display';
         btn.classList.remove('compact-display');
         btn.classList.add('normal-display');
@@ -186,7 +188,7 @@ function  resetGP2040CEInfoDisplay() {
     const btnCompactDisplay = document.getElementById('btnGP2040CEInfoDisplayModeToggle');
     const dropdownDisplayMode = document.getElementById('ddlGP2040CEInfoDisplayMode');
 
-    gp2040ceInfoCompactDisplay = false;
+    gp2040ceinfo_compact_display = false;
     btnCompactDisplay.innerText = 'Normal Display';
     btnCompactDisplay.classList.remove('compact-display');
     btnCompactDisplay.classList.add('normal-display');
@@ -200,14 +202,14 @@ function  resetGP2040CEInfoDisplay() {
     gp2040ceInfoAuthPreview = dropdownAuthStatus.value;
     gp2040ceInfoSOCDPreview = dropdownSOCDMode.value;
 
-    gp2040ceInfoDisplayMode = dropdownDisplayMode.value; // Value to save in Config.
-    gp2040ceInfoCompactDisplay = false; // Value to save in Config.
-    gp2040ceInfoDisplayX = 5; // Value to save in Config.
-    gp2040ceInfoDisplayY = 5; // Value to save in Config.
+    gp2040ceinfo_display_mode = dropdownDisplayMode.value; // Value to save in Config.
+    gp2040ceinfo_compact_display = false; // Value to save in Config.
+    gp2040ceinfo_display_x = 5; // Value to save in Config.
+    gp2040ceinfo_display_y = 5; // Value to save in Config.
 
         if (gp2040ceInfoOptions.length > 0) {
-            gp2040ceInfoOptions[0].x = gp2040ceInfoDisplayX;
-            gp2040ceInfoOptions[0].y = gp2040ceInfoDisplayY;
+            gp2040ceInfoOptions[0].x = gp2040ceinfo_display_x;
+            gp2040ceInfoOptions[0].y = gp2040ceinfo_display_y;
             gp2040ceInfoOptions[0].color = '#FFFFFF';
     }
     
@@ -220,7 +222,7 @@ function  updateGP2040CEInfoDisplay() {
     const dropdownSOCDModeValue = document.getElementById('ddlGP2040CEInfoSOCDPreview').value;
     const dropdownDisplayModeValue = document.getElementById('ddlGP2040CEInfoDisplayMode').value;
 
-    if (gp2040ceInfoCompactDisplay) {
+    if (gp2040ceinfo_compact_display) {
         gp2040ceInfoInputPreview = dropdownInputModeValue.slice(0, 3);
         gp2040ceInfoAuthPreview = dropdownAuthStatusValue.slice(-2);
         gp2040ceInfoSOCDPreview = dropdownSOCDModeValue.slice(-1);
@@ -257,7 +259,7 @@ function  updateGP2040CEInfoDisplay() {
         case "19": gp2040ceInfoDisplayPreview = gp2040ceInfoSOCDPreview; break; // SSSS-S
     }
 
-    gp2040ceInfoDisplayMode = dropdownDisplayModeValue; // Value to save in Config.
+    gp2040ceinfo_display_mode = dropdownDisplayModeValue; // Value to save in Config.
 
     if (gp2040ceInfoOptions.length > 0) {
         gp2040ceInfoOptions[0].preview = gp2040ceInfoDisplayPreview;
@@ -272,8 +274,8 @@ function addGP2040CEInfoDisplayToCanvas() {
     if (gp2040ceInfoOptions.length === 0) {
         const display = new GP2040CEInfoDisplay(
             ctx,
-            gp2040ceInfoDisplayX,
-            gp2040ceInfoDisplayY,
+            gp2040ceinfo_display_x,
+            gp2040ceinfo_display_y,
             gp2040ceInfoDisplayPreview
         );
 
@@ -363,8 +365,8 @@ function initGP2040CEInfoOledComponents() {
 
     const uploadBtn = document.getElementById('gp2040ceinfo_oled_upload_animation_button');
     const uploadInput = document.getElementById('gp2040ceinfo_uploadPngs');
-    const radiusInput = document.getElementById('gp2040ceinfo_oled_button_radius');
-    const angleInput = document.getElementById('gp2040ceinfo_oled_key_angle');
+    // const radiusInput = document.getElementById('gp2040ceinfo_oled_button_radius');
+    // const angleInput = document.getElementById('gp2040ceinfo_oled_key_angle');
 
     if (uploadBtn && uploadInput) {
         uploadBtn.addEventListener('click', function () {
@@ -374,23 +376,8 @@ function initGP2040CEInfoOledComponents() {
         uploadInput.addEventListener('change', handlePngUpload);
     }
 
-    if (radiusInput) {
-        radiusInput.addEventListener('input', function () {
-            changerad(this.value);
-        });
-    }
-
-    if (angleInput) {
-        angleInput.addEventListener('input', function () {
-            changeangle(this.value);
-        });
-    }
-
     addGP2040CEInfoDisplayToCanvas();
-}
-
-function enableGP2040CEInfoCheckBox() {
-    //TODO Condition of reading variable that sets it and dependancy of Uart and it's pins setup.
+    enableGP2040CEInfoCheckBox();
 }
 
 // Export it for external use
