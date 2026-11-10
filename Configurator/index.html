@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="CSS/page_styles/player_leds.css" />
   <link rel="stylesheet" href="CSS/page_styles/eightway.css" />
   <link rel="stylesheet" href="CSS/page_styles/oled.css" />
-  <!--<link rel="stylesheet" href="CSS/page_styles/Addons/uart.css" />-->
+  <link rel="stylesheet" href="CSS/page_styles/Addons/uart.css" />
   <link rel="stylesheet" href="CSS/page_styles/Addons/gp2040ce_input_info.css" />
 
   <link rel="stylesheet" href="CSS/ui_element_styles/helper.css" />
@@ -129,8 +129,10 @@
       <a id="oled_link" href="#" onclick="setActiveLink(event); showPage('oled'); show_oled_modal()">OLED Config</a>
       <a id="player_led_link" href="#" onclick="setActiveLink(event); showPage('player_leds');" class="nav-disabled">Player LED</a>
 
-      <!--<a id="uart_info_link" href="#" onclick="setActiveLink(event); showPage('uart');" class="nav-disabled">UART Config</a>-->
+      <!-- =======Addons======= -->
+      <a id="uart_link" href="#" onclick="setActiveLink(event); showPage('Addons_uart');" class="nav-disabled">UART Config</a>
       <a id="gp2040ce_info_link" href="#" onclick="setActiveLink(event); showPage('Addons_gp2040ce_input_info');" class="nav-disabled">GP2040-CE OLED Information</a>
+      <!-- =======Addons======= -->
     </div>
     <div class="nav-right">
       <label class="switch">
@@ -187,7 +189,7 @@
   <div id="player_leds-page" class="page-content" style="display:none;"></div>
   <div id="eightway-page" class="page-content" style="display:none;"></div>
   <div id="oled-page" class="page-content" style="display:none;"></div>
-  <!--<div id="uart-page" class="page-content" style="display:none;"></div>-->
+  <div id="Addons_uart-page" class="page-content" style="display:none;"></div>
   <div id="Addons_gp2040ce_input_info-page" class="page-content" style="display:none;"></div>
 
   <!-- Scripts -->
@@ -212,7 +214,7 @@
   <script src="Scripts/on_off.js" defer></script>
   <script src="Scripts/eightway.js" defer></script>
   <script src="Scripts/oled.js" defer></script>
-  <!--<script src="Scripts/Addons/uart.js" defer></script>-->
+  <script src="Scripts/Addons/uart.js" defer></script>
   <script src="Scripts/Addons/gp2040ce_input_info.js" defer></script>
   <script src="Scripts/nightmode_slider.js" defer></script>
   <script src="Scripts/default_code.js" defer></script>

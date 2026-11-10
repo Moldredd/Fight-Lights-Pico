@@ -1,0 +1,53 @@
+<body>
+    <div id="uart_container">
+        <div id="idle_head_container">
+            <h1 class="page-header">UART Configuration</h1>
+            <div id="idle_header_helper" class="helper"
+                title="(Addon)&#10;DISABLED WHEN NOT IN USE&#10;Setup TX and RX pins in order to enable communications with other boards.">
+                ?</div>
+        </div>
+
+        <!-- Added checkbox container similar to idle page -->
+        <div class="uart-checkbox-container">
+            <input type="checkbox" id="chkUART" name="chkUART" onchange="toggleUARTCheckBox();">
+            <label id="lblUART" for="chkUART">Enable UART</label>
+            <div class="helper" title="When unchecked, all UART functionality will be disabled">?</div>
+        </div>
+
+        <div class="uart-content-wrapper disabled-container" id="mbdyUART">
+            <div class="uart-controls-section uart-section-box">
+                <div class="section-title">
+                    UART Settings
+                </div>
+                <div class="uart-control-group">
+                    <label for="uart_tx_pin_num">UART TX PIN:</label>
+                    <select id="uart_tx_pin_num" class="uart-form-select" onchange="check_gpio_conflicts();" disabled>
+                        <option value="" selected>Select TX PIN</option>
+                        <option value="0">GP0</option>
+                        <option value="12">GP12</option>
+                        <option value="16">GP16</option>
+                        <option value="28">GP28</option>
+                    </select>
+                </div>
+
+                <div class="section-separator"></div>
+
+                <div class="uart-control-group">
+                    <label for="uart_rx_pin_num">UART RX PIN:</label>
+                    <select id="uart_rx_pin_num" class="uart-form-select" onchange="check_gpio_conflicts();" disabled>
+                        <option value="" selected>Select RX PIN</option>
+                        <option value="1">GP1</option>
+                        <option value="13">GP13</option>
+                        <option value="17">GP17</option>
+                        <option value="29">GP29</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="footer-row">
+    <a href="https://fight-lights.com/docs/#uart-config" target="_blank" id="lnkUART" class="guide-link">Need help?
+        Check out documentation for this page</a>
+        </div>
+    </div>
+</body>

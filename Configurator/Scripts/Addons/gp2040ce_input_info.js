@@ -137,13 +137,14 @@ let gp2040ceInfoSOCDPreview = 'SOCD';
 function toggleGP2040CEInfoCheckBox() {
     const container = document.getElementById('mdlBdyGP2040CEInfo');
     const checkbox = document.getElementById("chkGP2040CEInfo");
-    const link = document.getElementById("lnkGP2040CEInfo");
+    const link = document.getElementById("gp2040ce_info_link");
 
     if (!checkbox.checked) {
         container.classList.add('disabled-container');
         container.querySelectorAll('input, select, button, textarea')
             .forEach(el => el.disabled = true);
         link.classList.add('nav-disabled');
+        resetGP2040CEInfoDisplay();
     } else {
         container.classList.remove('disabled-container');
         container.querySelectorAll('input, select, button, textarea')

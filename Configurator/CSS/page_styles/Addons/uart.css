@@ -1,0 +1,156 @@
+/* Main Container */
+#uart_container {
+    max-width: 1040px; /* Matches a 1000px content area plus 40px padding */
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Header Styles */
+.page-header-wrapper {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#idle_head_container {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#idle_head_container .page-header {
+    font-size: 2rem;
+    font-weight: 450;
+    margin: 0;
+}
+
+/* Checkbox Container - Matches idle page style */
+.uart-checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0;
+    padding: 10px 0;
+    width: 100%;
+}
+
+#chkUART {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    appearance: none;
+    position: relative;
+    transition: all 0.2s ease;
+    flex: 0 0 30px;
+}
+
+#chkUART:checked {
+    background-color: #ff0000;
+    border-color: #000000;
+}
+
+#chkUART:checked::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 1px;
+    width: 8px;
+    height: 16px;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+#lblUART {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+
+/* Content Layout */
+.uart-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.uart-controls-section {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+
+/* Section Boxes */
+.uart-section-box {
+    background: var(--bg-buttons);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    border: 1px solid #eaeaea;
+}
+
+
+/* Control Groups */
+.uart-control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.uart-control-group label {
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.uart-control-group .uart-form-select {
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+
+/* Separator */
+.section-separator {
+    height: 1px;
+    background: var(--separator-color);
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* Color Classes */
+
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .uart-content-wrapper {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .uart-controls-section {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 480px) {  
+    .page-header {
+        font-size: 1.5rem;
+    }
+    
+    #lblUART {
+        font-size: 20px;
+    }
+}

@@ -10,7 +10,7 @@ const pages = {
   player_leds: document.getElementById('player_leds-page'),
   eightway: document.getElementById('eightway-page'),
   oled: document.getElementById('oled-page'),
-  //uart: document.getElementById('uart-page'),
+  Addons_uart: document.getElementById('Addons_uart-page'),
   Addons_gp2040ce_input_info: document.getElementById('Addons_gp2040ce_input_info-page')
 };
 
@@ -85,6 +85,12 @@ function fetchPage(page) {
             }
             break;
 
+          case 'Addons_uart':
+            if (typeof initUARTComponents === 'function') {
+              initUARTComponents();
+            }
+            break;
+
           case 'Addons_gp2040ce_input_info':
             if (typeof initGP2040CEInfoOledComponents === 'function') {
               initGP2040CEInfoOledComponents();
@@ -120,7 +126,7 @@ function loadAllPages() {
     fetchPage('player_leds'),
     fetchPage('eightway'),
     fetchPage('oled'),
-    //fetchPage('uart'),
+    fetchPage('Addons_uart'),
     fetchPage('Addons_gp2040ce_input_info')
   ]);
 }
