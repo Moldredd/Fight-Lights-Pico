@@ -100,6 +100,10 @@ class GP2040CEInfoDisplay {
             this.x = Math.round(newX);
             this.y = Math.round(newY);
 
+            gp2040ce_info_display_x = this.x;
+            gp2040ce_info_display_y = this.y;
+            updateGP2040CEInfoDisplay();
+
             updateGP2040CEInfoCanvas();
         }
     }
@@ -112,8 +116,8 @@ class GP2040CEInfoDisplay {
         this.x = Math.max(0, Math.min(this.canvas.width, this.x + dx));
         this.y = Math.max(0, Math.min(this.canvas.height, this.y + dy));
 
-        gp2040ceinfo_display_x = this.x;
-        gp2040ceinfo_display_y = this.y;
+        gp2040ce_info_display_x = this.x;
+        gp2040ce_info_display_y = this.y;
         updateGP2040CEInfoCanvas();
     }
 }
@@ -122,11 +126,11 @@ let isGP2040CEInfoCanvasDrawn = false;
 let selectedGP2040CEInfoOption = null;
 let gp2040ceInfoOptions = [];
 
-let enable_gp2040ceinfo = false; // For config.py
-let gp2040ceinfo_display_mode = 0; // For config.py
-let gp2040ceinfo_compact_display = false; // for config.py
-let gp2040ceinfo_display_x = 5; // For config.py
-let gp2040ceinfo_display_y = 5; // For config.py
+let enable_gp2040ce_info = false; // For config.py
+let gp2040ce_info_display_mode = 0; // For config.py
+let gp2040ce_info_compact_display = false; // for config.py
+let gp2040ce_info_display_x = 5; // For config.py
+let gp2040ce_info_display_y = 5; // For config.py
 
 // Used for web configuration preview
 let gp2040ceInfoDisplayPreview = '';
@@ -152,19 +156,19 @@ function toggleGP2040CEInfoCheckBox() {
         link.classList.remove('nav-disabled');
     }
 
-    enable_gp2040ceinfo = checkbox.checked;
+    enable_gp2040ce_info = checkbox.checked;
 }
 
 function toggleInputDisplayCompactDisplay() {
     const btn = document.getElementById('btnGP2040CEInfoDisplayModeToggle');
 
     if (btn.innerText === 'Normal Display') {
-        gp2040ceinfo_compact_display = true;
+        gp2040ce_info_compact_display = true;
         btn.innerText = 'Compact Display';
         btn.classList.remove('normal-display');
         btn.classList.add('compact-display');
     } else {
-        gp2040ceinfo_compact_display = false;
+        gp2040ce_info_compact_display = false;
         btn.innerText = 'Normal Display';
         btn.classList.remove('compact-display');
         btn.classList.add('normal-display');
@@ -188,7 +192,7 @@ function  resetGP2040CEInfoDisplay() {
     const btnCompactDisplay = document.getElementById('btnGP2040CEInfoDisplayModeToggle');
     const dropdownDisplayMode = document.getElementById('ddlGP2040CEInfoDisplayMode');
 
-    gp2040ceinfo_compact_display = false;
+    gp2040ce_info_compact_display = false;
     btnCompactDisplay.innerText = 'Normal Display';
     btnCompactDisplay.classList.remove('compact-display');
     btnCompactDisplay.classList.add('normal-display');
@@ -202,14 +206,14 @@ function  resetGP2040CEInfoDisplay() {
     gp2040ceInfoAuthPreview = dropdownAuthStatus.value;
     gp2040ceInfoSOCDPreview = dropdownSOCDMode.value;
 
-    gp2040ceinfo_display_mode = dropdownDisplayMode.value; // Value to save in Config.
-    gp2040ceinfo_compact_display = false; // Value to save in Config.
-    gp2040ceinfo_display_x = 5; // Value to save in Config.
-    gp2040ceinfo_display_y = 5; // Value to save in Config.
+    gp2040ce_info_display_mode = dropdownDisplayMode.value; // Value to save in Config.
+    gp2040ce_info_compact_display = false; // Value to save in Config.
+    gp2040ce_info_display_x = 5; // Value to save in Config.
+    gp2040ce_info_display_y = 5; // Value to save in Config.
 
         if (gp2040ceInfoOptions.length > 0) {
-            gp2040ceInfoOptions[0].x = gp2040ceinfo_display_x;
-            gp2040ceInfoOptions[0].y = gp2040ceinfo_display_y;
+            gp2040ceInfoOptions[0].x = gp2040ce_info_display_x;
+            gp2040ceInfoOptions[0].y = gp2040ce_info_display_y;
             gp2040ceInfoOptions[0].color = '#FFFFFF';
     }
     
@@ -222,7 +226,7 @@ function  updateGP2040CEInfoDisplay() {
     const dropdownSOCDModeValue = document.getElementById('ddlGP2040CEInfoSOCDPreview').value;
     const dropdownDisplayModeValue = document.getElementById('ddlGP2040CEInfoDisplayMode').value;
 
-    if (gp2040ceinfo_compact_display) {
+    if (gp2040ce_info_compact_display) {
         gp2040ceInfoInputPreview = dropdownInputModeValue.slice(0, 3);
         gp2040ceInfoAuthPreview = dropdownAuthStatusValue.slice(-2);
         gp2040ceInfoSOCDPreview = dropdownSOCDModeValue.slice(-1);
@@ -259,7 +263,7 @@ function  updateGP2040CEInfoDisplay() {
         case "19": gp2040ceInfoDisplayPreview = gp2040ceInfoSOCDPreview; break; // SSSS-S
     }
 
-    gp2040ceinfo_display_mode = dropdownDisplayModeValue; // Value to save in Config.
+    gp2040ce_info_display_mode = dropdownDisplayModeValue; // Value to save in Config.
 
     if (gp2040ceInfoOptions.length > 0) {
         gp2040ceInfoOptions[0].preview = gp2040ceInfoDisplayPreview;
@@ -274,8 +278,8 @@ function addGP2040CEInfoDisplayToCanvas() {
     if (gp2040ceInfoOptions.length === 0) {
         const display = new GP2040CEInfoDisplay(
             ctx,
-            gp2040ceinfo_display_x,
-            gp2040ceinfo_display_y,
+            gp2040ce_info_display_x,
+            gp2040ce_info_display_y,
             gp2040ceInfoDisplayPreview
         );
 

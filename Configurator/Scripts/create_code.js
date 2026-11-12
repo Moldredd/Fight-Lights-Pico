@@ -556,6 +556,22 @@ function generate_code() {
         oled_combo_idle_frame_value = -1;
     var oled_combo_idle_frame = "oled_combo_idle_frame = " + oled_combo_idle_frame_value;
 
+    //Addon
+    const addon_cmt1_out = '#=======================================<Addon config variables>==========================================';
+    const addon_cmt2_out = '#=======================================|UART Information|================================================';
+    const enable_uart_out = 'enable_uart = ' + (enable_uart ? 'True' : 'False');
+    const uart_tx_pin_out = 'uart_tx_pin = ' + uart_tx_pin;
+    const uart_rx_pin_out = 'uart_rx_pin = ' + uart_rx_pin;
+    const addon_cmt3_out = '#=======================================|UART Information End|============================================';
+    const addon_cmt4_out = '#=====================================|GP2040-CE Input Information|=======================================';
+    const enable_gp2040ce_info_out = 'enable_gp2040ce_info = ' + (enable_gp2040ce_info ? 'True' : 'False'); 
+    const gp2040ce_info_display_mode_out = 'gp2040ce_info_display_mode = ' + gp2040ce_info_display_mode; 
+    const gp2040ce_info_compact_display_out = 'gp2040ce_info_compact_display = ' + (gp2040ce_info_compact_display ? 'True' : 'False'); 
+    const gp2040ce_info_display_x_out = 'gp2040ce_info_display_x = ' + gp2040ce_info_display_x; 
+    const gp2040ce_info_display_y_out = 'gp2040ce_info_display_y = ' + gp2040ce_info_display_y; 
+    const addon_cmt5_out = '#=====================================|GP2040-CE Input Information End|====================================';
+    const addon_cmt6_out = '#=======================================<Addon config variables End>=======================================';
+
     document.getElementById("code_box").value =
         failsave + activate_oled + '\n' + header
         + colors + "\n"
@@ -621,6 +637,22 @@ function generate_code() {
         + animation_delay + '\n'
         + oled_combo_idle_frame + '\n'
         + exportCombosToString() + '\n'
+
+        + addon_cmt1_out + '\n\n'
+        + addon_cmt2_out + '\n\n'
+        + enable_uart_out + '\n'
+        + uart_tx_pin_out + '\n'
+        + uart_rx_pin_out + '\n\n'
+        + addon_cmt3_out + '\n\n'
+        + addon_cmt4_out + '\n\n'
+        + enable_gp2040ce_info_out + '\n'
+        + gp2040ce_info_display_mode_out + '\n'
+        + gp2040ce_info_compact_display_out + '\n'
+        + gp2040ce_info_display_x_out + '\n'
+        + gp2040ce_info_display_y_out + '\n\n'
+        + addon_cmt5_out + '\n\n'
+        + addon_cmt6_out + '\n\n'
+
         + createPythonByteArray(getBinaryPixelValuesArray('my_splash_canvas'), 'splash') + '\n'
         + createPythonByteArray(getBinaryPixelValuesArray('my_overlay_canvas'), 'overlay') + '\n'
         + "############do not delete this line#######################";

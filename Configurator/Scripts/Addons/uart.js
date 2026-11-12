@@ -36,6 +36,16 @@ function enableGP2040CEInfoCheckBox() {
     checkbox.disabled = !enable_uart; // Disable the checkbox if UART is not enabled);
 }
 
+function setUARTTXPin() {
+    const ddlTX = document.getElementById('uart_tx_pin_num');
+    uart_tx_pin = ddlTX.value;
+}
+
+function setUARTRXPin() {
+    const ddlRX = document.getElementById('uart_rx_pin_num');
+    uart_rx_pin = ddlRX.value; 
+}
+
 function initUARTComponents(enableUart = false, txPin = null, rxPin = null) {
     enable_uart = enableUart;
     uart_tx_pin = txPin;

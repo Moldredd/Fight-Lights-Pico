@@ -820,6 +820,79 @@ function fill_configurator() {
     //var user_combos = user_combos.split('=')[1].trim();
     //var user_combos = parseUserCombos(user_combos);
     //console.log(user_combos);
+
+    //Addon config variables
+
+    //UART Information
+
+    //Enable UART
+    let enable_uart_in = get_value('enable_uart = ');
+    enable_uart = enable_uart_in == 'True' ? true : false;
+    document.getElementById('chkUART').checked = enable_uart;
+    toggleUARTCheckBox();
+
+    //UART TX Pin
+    let uart_tx_pin_in = get_value('uart_tx_pin = ');
+    if (uart_tx_pin_in) {
+        uart_tx_pin = parseInt(uart_tx_pin_in);
+        document.getElementById('uart_tx_pin_num').value = uart_tx_pin;
+    }
+
+    //UART RX Pin
+    let uart_rx_pin_in = get_value('uart_rx_pin = ');
+    if (uart_rx_pin_in) {
+        uart_rx_pin = parseInt(uart_rx_pin_in);
+        document.getElementById('uart_rx_pin_num').value = uart_rx_pin;
+    }
+
+    //GP2040-CE Input Information
+    enableGP2040CEInfoCheckBox();
+
+    //Enable GP2040-CE Input Information
+    let enable_gp2040ce_info_in = get_value('enable_gp2040ce_info = '); 
+    document.getElementById('chkGP2040CEInfo').checked = enable_gp2040ce_info_in == 'True' ? true : false;
+    toggleGP2040CEInfoCheckBox();
+    
+    //GP2040-CE Input Display Mode
+    let gp2040ce_info_display_mode_in = get_value('gp2040ce_info_display_mode = '); 
+    if (gp2040ce_info_display_mode_in) {
+        gp2040ce_info_display_mode = parseInt(gp2040ce_info_display_mode_in);
+        document.getElementById('ddlGP2040CEInfoDisplayMode').value = gp2040ce_info_display_mode;
+        document.getElementById('ddlGP2040CEInfoInputPreview').value = 'XINPUT';
+        document.getElementById('ddlGP2040CEInfoAuthPreview').value = 'Auth:OK';
+        document.getElementById('ddlGP2040CEInfoSOCDPreview').value = 'SOCD-U';
+    }
+
+    //GP2040-CE Input Compact Display
+    let gp2040ce_info_compact_display_in = get_value('gp2040ce_info_compact_display = '); 
+    gp2040ce_info_compact_display = gp2040ce_info_compact_display_in == 'True' ? true : false;
+    const btnGP2040CEInfoCompact = document.getElementById('btnGP2040CEInfoDisplayModeToggle');
+
+    if (gp2040ce_info_compact_display) {
+        btnGP2040CEInfoCompact.innerText = 'Compact Display';
+        btnGP2040CEInfoCompact.classList.remove('normal-display');
+        btnGP2040CEInfoCompact.classList.add('compact-display');
+    } else {
+        btnGP2040CEInfoCompact.innerText = 'Normal Display';
+        btnGP2040CEInfoCompact.classList.remove('compact-display');
+        btnGP2040CEInfoCompact.classList.add('normal-display');
+    }
+
+    //GP2040-CE Input Display X Position
+    let gp2040ce_info_display_x_in = get_value('gp2040ce_info_display_x = '); 
+    if (gp2040ce_info_display_x_in) {
+        gp2040ce_info_display_x = parseInt(gp2040ce_info_display_x_in);
+    }
+
+    //GP2040-CE Input Display Y Position
+    let gp2040ce_info_display_y_in = get_value('gp2040ce_info_display_y = '); 
+    if (gp2040ce_info_display_y_in) {
+        gp2040ce_info_display_y = parseInt(gp2040ce_info_display_y_in);
+    }
+
+    updateGP2040CEInfoDisplay();
+
+    //Addons End
 }
 
 function parseUserCombos(input) {
